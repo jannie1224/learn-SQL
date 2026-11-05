@@ -1,3 +1,5 @@
+-- 要用https://sqliteviz.com/app/#/workspace
+
 /*註解
  * Your CSV file has been imported into students table.
  * You can run this SQL query to make all CSV records available for charting.
