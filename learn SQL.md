@@ -144,13 +144,32 @@ FROM students;
 On students.社團 = clubs.社團編號
 -- 要說明兩個table如何相連
 WHERE 班級 = '1 年 1 班';*/
-SELECT DISTINCT students.姓名, students.社團, clubs.社團名稱
-FROM students
-INNER JOIN clubs
+-- SELECT DISTINCT students.姓名, students.社團, clubs.社團名稱
+-- FROM students
+-- INNER JOIN clubs
 -- INNER JOIN 將表格加入進來，只回傳兩邊資料表都有吻合的交集資料。
-On students.社團 = clubs.社團編號
+-- On students.社團 = clubs.社團編號
 -- 要說明兩個table如何相連
-WHERE 班級 = '1 年 1 班';
+-- WHERE 班級 = '1 年 1 班';
 -- 改成INNER，把沒有配對的去除
 -- 雙引號 "" 是用來包住「欄位名稱」或「資料表名稱」（特別是名稱內含空格或關鍵字時）
 -- 而單引號 '' 才是用來包住「字串資料」（例如 '1 年 2 班')
+
+-- 如果你的資料庫欄位裡存的是代碼（例如：M、F）或特定數值，你想在顯示時變成特定的中文細項    
+-- 我查google是這樣啦，但是我覺得是改細項
+SELECT 姓名,
+    CASE 
+        WHEN 班級 = '1 年 1 班' THEN '一年一班（忠班）'
+        WHEN 班級 = '1 年 2 班' THEN '一年二班（孝班）'
+        ELSE '其他班級'
+    END AS 班級完整名稱
+FROM students;
+
+-- 語法：ALTER TABLE 表名 RENAME COLUMN 舊欄位名 TO 新欄位名;
+ALTER TABLE students RENAME COLUMN 成績 TO 期末分數;
+
+-- 語法：ALTER TABLE 舊表名 RENAME TO 新表名;
+ALTER TABLE students RENAME TO taiwan_students;
+
+
+
