@@ -161,10 +161,12 @@ SELECT 姓名,
     CASE 
         WHEN 班級 = '1 年 1 班' THEN '一年一班（忠班）'
         WHEN 班級 = '1 年 2 班' THEN '一年二班（孝班）'
+        WHEN 班級 IS NULL THEN '未分班' -- 可能有人沒填資料，會報錯，要寫這個喔!
         ELSE '其他班級'
     END AS 班級完整名稱
 FROM students;
 
+-- 下面這兩個一改，就永遠改變
 -- 語法：ALTER TABLE 表名 RENAME COLUMN 舊欄位名 TO 新欄位名;
 ALTER TABLE students RENAME COLUMN 成績 TO 期末分數;
 
