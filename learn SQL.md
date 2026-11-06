@@ -130,9 +130,9 @@ LEFT JOIN clubs
 
 --  有用別名：我打字不用打到累死
 --SELECT s.姓名, s.班級, c.社團名稱, c.社團老師
---FROM students AS s
  s.姓名 AS 學生姓名, -- 拿 s 表的名稱，並重新命名為 學生姓名
  c.社團 AS 社團名稱  -- 拿 c 表的名稱，並重新命名為 社團名稱
+--FROM students AS s
 --LEFT JOIN clubs AS c ON s.社團 = c.社團編號;
 --  精準區分同名的欄位
 -- AS可寫可不寫
