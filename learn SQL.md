@@ -133,6 +133,11 @@ LEFT JOIN clubs
 --SELECT s.姓名, s.班級, c.社團名稱, c.社團老師
 --FROM students AS s
 --LEFT JOIN clubs AS c ON s.社團 = c.社團編號;
+SELECT 
+    姓名 AS 學生姓名, 
+    班級 AS 班級別, 
+    成績 AS 期末總成績
+FROM students;
 --  精準區分同名的欄位
 -- AS可寫可不寫
 -- 一但用新名字，舊名字失效
