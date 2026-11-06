@@ -1,4 +1,6 @@
--- 要用https://sqliteviz.com/app/#/workspace
+-- 我用https://sqliteviz.com/app/#/workspace
+-- 可以用 My SQL 、PostgreSQL 、SQL Server 、ORACLE
+
 
 /*註解
  * Your CSV file has been imported into students table.
@@ -6,7 +8,7 @@
  */
  -- 一行的註解
 /*SELECT * 
-FROM "students" ;
+FROM "students" 
 LIMIT 5 
 OFFSET 5;*/
 -- 選取 全部的欄位 從student這個表格中找
@@ -15,6 +17,7 @@ OFFSET 5;*/
 -- * 可以改成其他東西，例如:學號、姓名、班級，可以只顯示部分資料
 -- 用LIMIT 限制顯示的資料數量
 -- OFFSET 可以跳過資訊
+-- 可以簡寫成 LIMIT 5, 5（注意：前面是 OFFSET，後面是 LIMIT，順序與原本相反
 -- 慣例是要一行一行分著寫
 /*SELECT 姓名, 班級, 成績 
 FROM students 
@@ -30,6 +33,8 @@ ORDER BY 班級, 成績 DESC;*/
 -- FROM students
 -- WHERE 姓名 LIKE '張%';
 -- WHERE 姓名 LIKE '張_';
+-- • %：代表零個、一個或多個任意字元。
+-- • _：代表嚴格一個任意字元
 -- 如果想用名字找，但不記得全名，用%，代表一個或多個字元，但=要改成LIKE
 -- 如果%改成_，_只找一個字
 -- WHERE 成績 >= 80 AND 成績 < 90;
@@ -75,7 +80,8 @@ ORDER BY 成績平均 DESC;*/
 -- SELECT COUNT(DISTINCT 社團)　　
 -- FROM students;
 -- *代表輸出總行數
--- COUNT　會自動忽略空白格子
+-- • COUNT(*) 会計算所有行數，包含 NULL 的格子。
+-- • COUNT(欄位名) 才會自動忽略該欄位的 NULL 值。
 -- DISTINCT 可以移除重複的資料
 -- SELECT DISTINCT (社團)　　
 -- FROM students
@@ -120,14 +126,27 @@ SELECT * FROM clubs;*/
 FROM students
 LEFT JOIN clubs
 -- LEFT JOIN 將表格加入進來
+-- 保留左表（Left Table）全部的資料，右表有吻合的就接上去，沒有吻合的則填入 NULL
+
+--  有用別名：我打字不用打到累死
+--SELECT s.姓名, s.班級, c.社團名稱, c.社團老師
+--FROM students AS s
+ s.姓名 AS 學生姓名, -- 拿 s 表的名稱，並重新命名為 學生姓名
+ c.社團 AS 社團名稱  -- 拿 c 表的名稱，並重新命名為 社團名稱
+--LEFT JOIN clubs AS c ON s.社團 = c.社團編號;
+--  精準區分同名的欄位
+-- AS可寫可不寫
+-- 一但用新名字，舊名字失效
 On students.社團 = clubs.社團編號
 -- 要說明兩個table如何相連
 WHERE 班級 = '1 年 1 班';*/
 SELECT DISTINCT students.姓名, students.社團, clubs.社團名稱
 FROM students
 INNER JOIN clubs
--- LEFT JOIN 將表格加入進來
+-- INNER JOIN 將表格加入進來，只回傳兩邊資料表都有吻合的交集資料。
 On students.社團 = clubs.社團編號
 -- 要說明兩個table如何相連
 WHERE 班級 = '1 年 1 班';
 -- 改成INNER，把沒有配對的去除
+-- 雙引號 "" 是用來包住「欄位名稱」或「資料表名稱」（特別是名稱內含空格或關鍵字時）
+-- 而單引號 '' 才是用來包住「字串資料」（例如 '1 年 2 班')
